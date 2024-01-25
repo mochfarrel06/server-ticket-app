@@ -45,4 +45,27 @@ const find = async (req, res, next) => {
   }
 };
 
-module.exports = {index, create, find};
+// Function update
+const update = async (req, res, next) => {
+  try {
+    const {id} = req.params;
+    const {name} = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({message: "ObjectId tidak valid"});
+    }
+
+    const result = await Categories.findOne({_id: id});
+
+    result.name = name;
+    result.save();
+
+    res.status(200).json({
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = {index, create, find, update};
