@@ -25,4 +25,18 @@ const create = async (req, res, next) => {
   }
 };
 
-module.exports = {index, create};
+// Function find one
+const find = async (req, res, next) => {
+  try {
+    const {id} = req.params;
+    const result = await Categories.findOne({_id: id});
+
+    res.status(200).json({
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = {index, create, find};

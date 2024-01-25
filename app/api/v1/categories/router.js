@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express();
-const {index, create} = require("./controller");
+const {index, create, find} = require("./controller");
 
 router.get("/categories", index);
+
+router.get("/categories/:id", find);
 
 router.post("/categories", create);
 
